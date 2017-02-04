@@ -1,6 +1,6 @@
 def main():
     """ Takes a one line input from STDIN and outputs 'yes' if it is a proper
-    propositional statement. No whitespace
+    propositional statement, no otherwise. NO WHITESPACE
     and = '^'
     or = 'v'
     equivalence = '='
@@ -34,11 +34,20 @@ def sentence(s):
     :param s: A string that represents the sentence to check
     :return: boolean
     """
+    if len(s) == 0:
+        return True
+    elif is_symbol(s):
+        return True
+    elif len(s) > 1 and s[0] == '~':
+        return is_symbol(s[1]) and sentence(s[1:])
+    elif len(s) > 2 and (s[1] == '^' or s[1] == 'V'
+            or s[1] == '=' or s[1] == '>'):
+        return is_symbol(s[0]) and sentence(s[2:])
     return False
 
 
 # **************************************************************
-def symbol(p):
+def is_symbol(p):
     """ Checks if p is a proposition or truth symbol
     Will return False if p is not in the range A,B..Z,a..z or is more than
     one symbol
