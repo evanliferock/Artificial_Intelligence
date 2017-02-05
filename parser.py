@@ -1,8 +1,8 @@
 def main():
     """ Takes a one line input from STDIN and outputs 'yes' if it is a proper
     propositional statement, no otherwise. NO WHITESPACE
-    and = '^'
-    or = 'v'
+    and = '&'
+    or = '|'
     equivalence = '='
     negation = '~'
     implication = '>'
@@ -12,7 +12,7 @@ def main():
     C = Connective
 
     Author 1: Evan Srock
-    Author 2:
+    Author 2: Katie Phillips
     Author 3:
     """
     the_input = raw_input().strip()
@@ -40,7 +40,7 @@ def sentence(s):
         return True
     elif len(s) > 1 and s[0] == '~':
         return is_symbol(s[1]) and sentence(s[1:])
-    elif len(s) > 2 and (s[1] == '^' or s[1] == 'V'
+    elif len(s) > 2 and (s[1] == '&' or s[1] == '|'
             or s[1] == '=' or s[1] == '>'):
         return is_symbol(s[0]) and sentence(s[2:])
     return False
