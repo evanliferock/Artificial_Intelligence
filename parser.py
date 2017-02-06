@@ -11,7 +11,7 @@ def main():
     T/F = Truth Symbols
     C = Connective
 
-    Author 1: Evan Srock
+    Author 1: Evan Srock (esrock)
     Author 2: Patrick Chadbourne
     Author 3: Katie Phillips
     """
