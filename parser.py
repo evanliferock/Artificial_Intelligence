@@ -12,8 +12,8 @@ def main():
     C = Connective
 
     Author 1: Evan Srock
-    Author 2: Katie Phillips
-    Author 3:
+    Author 2: Patrick Chadbourne
+    Author 3: Katie Phillips
     """
     the_input = raw_input().strip()
     if sentence(the_input):
@@ -28,8 +28,6 @@ def sentence(s):
     P
     T/F
     ~S
-    (S)C(S)  (I don't think parenthesis are included...)
-    (I believe that's all...)
 
     :param s: A string that represents the sentence to check
     :return: boolean
