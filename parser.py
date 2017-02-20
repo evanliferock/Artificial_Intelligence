@@ -31,6 +31,7 @@ def sentence(p):
     :param s: A string that represents the sentence to check
     :return: boolean
     """
+
     return False
 
 
@@ -87,18 +88,22 @@ class Parser:
         """
             Matches the token to the current part of the input. Increments
             index if successful
-        :param token: a string of length 1 that is to be matched
+        :param token: a string of length 1 that is to be matched.
+                     'S' denotes symbol
         :return: boolean if match successful
         """
         try:
-            if self.the_input[self.index] == token:
+            if token == 'S' and is_symbol(self.the_input[self.index]) \
+                    or self.the_input[self.index] == token:
                 self.index += 1
                 return True
         except IndexError:
             print 'Error on checking \'' + token + \
-                  '\': the input has been parsed'
-            return False
-        return False
+                  '\': the next token is empty'
+            exit(1)
+        print 'Passed in token: '+ token + " did not match input: " \
+            + self.the_input[self.index]
+        exit(1)
 
     def get_next(self):
         """
