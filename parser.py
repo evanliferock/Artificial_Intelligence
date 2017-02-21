@@ -39,6 +39,8 @@ def sentence(p):
             return True
         else:
             return connective_sentence(p)
+    else:
+        return False
 
 
 # **************************************************************
@@ -122,7 +124,7 @@ class Parser:
             print 'Error on checking \'' + token + \
                   '\': the next token is empty'
             exit(1)
-        print 'No'
+        print 'No' # there is improper grammar
         exit(1)
 
     def get_next(self):
