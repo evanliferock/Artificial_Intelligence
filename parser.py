@@ -31,19 +31,14 @@ def sentence(p):
     :param s: A string that represents the sentence to check
     :return: boolean
     """
-    if p.get_next() == None:
-        return True
-    elif p.get_next() == '~':
+    if p.get_next() == '~':
         return negation_sentence(p)
     elif is_symbol(p.get_next()):
         p.match('S')
-        if not is_symbol(p.get_next()):
-            return sentence(p)
+        if p.get_next() is None:
+            return True
         else:
-            # cannot have two propositional symbols together
-            return False
-    else:
-        return connective_sentence(p)
+            return connective_sentence(p)
 
 
 # **************************************************************
@@ -54,24 +49,28 @@ def negation_sentence(p):
     :return: boolean
     """
     p.match('~')
-    if p.get_next() == '~':
-        return negation_sentence(p)
-    else:
-        p.match('S')
-        return sentence(p)
+    return sentence(p)
 
 
 # **************************************************************
 def connective_sentence(p):
     """
-        checks fot it to be a valid connective sentence
+        checks fot it to be a valid connective
         Should be:
-        (Connective)(Sentence)
-        Sentence will check sentences before connective
+        (Connective)(sentence)
+        Sentence will check sentences before and after connective
     :param p: parser class instance
     :return: boolean
     """
-    return False
+    if p.get_next() == '=':
+        p.match('=')
+    elif p.get_next() == '|':
+        p.match('|')
+    elif p.get_next() == '>':
+        p.match('>')
+    else:
+        p.match('&')
+    return sentence(p)
 
 
 # **************************************************************
@@ -102,6 +101,9 @@ class Parser:
              removes whitespace from the input
         """
         self.the_input = raw_input().strip().replace(' ', '')
+        if self.the_input == '':
+            print ('No input detected')
+            exit(1)
 
     def match(self, token):
         """
@@ -120,8 +122,7 @@ class Parser:
             print 'Error on checking \'' + token + \
                   '\': the next token is empty'
             exit(1)
-        print 'Passed in token: '+ token + " did not match input: " \
-            + self.the_input[self.index]
+        print 'No'
         exit(1)
 
     def get_next(self):
