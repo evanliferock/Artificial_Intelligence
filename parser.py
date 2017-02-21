@@ -31,8 +31,15 @@ def sentence(p):
     :param s: A string that represents the sentence to check
     :return: boolean
     """
-
-    return False
+    if p.get_next() == None:
+        return True
+    elif p.get_next() == '~':
+        return negation_sentence()
+    elif is_symbol(p.get_next()):
+        p.match('S')
+        return sentence(p)
+    else:
+        return connective_sentence(p)
 
 
 # **************************************************************
@@ -110,7 +117,10 @@ class Parser:
             fetches the next token in the input
         :return: string of length 1 that is to be matched
         """
-        return self.the_input[self.index]
+        try:
+            return self.the_input[self.index]
+        except IndexError:
+            return None
 
 
 if __name__ == '__main__':
