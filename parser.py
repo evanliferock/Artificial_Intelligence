@@ -34,10 +34,14 @@ def sentence(p):
     if p.get_next() == None:
         return True
     elif p.get_next() == '~':
-        return negation_sentence()
+        return negation_sentence(p)
     elif is_symbol(p.get_next()):
         p.match('S')
-        return sentence(p)
+        if not is_symbol(p.get_next()):
+            return sentence(p)
+        else:
+            # cannot have two propositional symbols together
+            return False
     else:
         return connective_sentence(p)
 
@@ -49,13 +53,21 @@ def negation_sentence(p):
     :param p: parser class instance
     :return: boolean
     """
-    return False
+    p.match('~')
+    if p.get_next() == '~':
+        return negation_sentence(p)
+    else:
+        p.match('S')
+        return sentence(p)
 
 
 # **************************************************************
 def connective_sentence(p):
     """
         checks fot it to be a valid connective sentence
+        Should be:
+        (Connective)(Sentence)
+        Sentence will check sentences before connective
     :param p: parser class instance
     :return: boolean
     """
